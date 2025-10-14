@@ -1,6 +1,5 @@
 package com.example.sep490_eocims.dto.request;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

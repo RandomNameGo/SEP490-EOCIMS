@@ -1,7 +1,6 @@
 package com.example.sep490_eocims.services;
 
 import com.example.sep490_eocims.dto.request.SemesterRequest;
-import com.example.sep490_eocims.mappers.SemesterMapper;
 import com.example.sep490_eocims.models.Semester;
 import com.example.sep490_eocims.repositories.SemesterRepository;
 import lombok.RequiredArgsConstructor;
