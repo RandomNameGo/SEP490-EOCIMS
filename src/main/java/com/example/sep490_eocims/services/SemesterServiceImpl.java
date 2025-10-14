@@ -12,8 +12,6 @@ public class SemesterServiceImpl implements SemesterService {
 
     private final SemesterRepository semesterRepository;
 
-    private final SemesterMapper semesterMapper;
-
     @Override
     public String creteSemester(SemesterRequest semesterRequest) {
         Semester semester = new Semester();
