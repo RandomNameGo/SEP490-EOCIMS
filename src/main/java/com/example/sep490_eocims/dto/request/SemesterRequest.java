@@ -10,7 +10,6 @@ import java.time.LocalDate;
 public class SemesterRequest {
 
     @NotNull(message = "Semester name can not be null")
-    @NotEmpty(message = "Semester name can not be empty")
     private String semesterName;
 
     @NotNull(message = "Semester start date can not be null")

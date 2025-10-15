@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Table(name = "exam")
 public class Exam {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exam_id", columnDefinition = "int UNSIGNED not null")
     private Long id;
 

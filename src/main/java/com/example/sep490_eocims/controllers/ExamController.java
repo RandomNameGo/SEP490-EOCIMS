@@ -1,9 +1,9 @@
 package com.example.sep490_eocims.controllers;
 
-import com.example.sep490_eocims.dto.request.SemesterRequest;
+import com.example.sep490_eocims.dto.request.ExamCreateRequest;
 import com.example.sep490_eocims.dto.response.ApiResponse;
-import com.example.sep490_eocims.dto.response.SemesterResponse;
-import com.example.sep490_eocims.services.SemesterService;
+import com.example.sep490_eocims.dto.response.ExamResponse;
+import com.example.sep490_eocims.services.ExamService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,29 +15,29 @@ import java.util.List;
 @RestController
 @RequestMapping("eocims/api/v1")
 @RequiredArgsConstructor
-public class SemesterController {
+public class ExamController {
 
-    private final SemesterService semesterService;
+    private final ExamService examService;
 
-    @PostMapping("/semester")
+    @PostMapping("/exam")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> addSemester(@RequestBody @Valid SemesterRequest semesterRequest) {
+    public ResponseEntity<?> addExam(@RequestBody @Valid ExamCreateRequest examCreateRequest) {
         return ResponseEntity.ok().body(ApiResponse.<String>builder()
                 .success(true)
                 .message("Success")
-                .data(semesterService.creteSemester(semesterRequest))
+                .data(examService.createExam(examCreateRequest))
                 .error(null)
                 .build()
         );
     }
 
-    @GetMapping("/semesters")
+    @GetMapping("/exams")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> getAllSemesters() {
-        return ResponseEntity.ok().body(ApiResponse.<List<SemesterResponse>>builder()
+    public ResponseEntity<?> getAllExams() {
+        return ResponseEntity.ok().body(ApiResponse.<List<ExamResponse>>builder()
                 .success(true)
                 .message("Success")
-                .data(semesterService.getAllSemesters())
+                .data(examService.getAllExams())
                 .error(null)
                 .build()
         );
