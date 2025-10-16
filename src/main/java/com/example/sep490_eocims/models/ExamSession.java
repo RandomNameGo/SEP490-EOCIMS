@@ -1,6 +1,7 @@
 package com.example.sep490_eocims.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
@@ -15,6 +16,7 @@ import java.time.LocalTime;
 @Table(name = "exam_session")
 public class ExamSession {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exam_session_id", columnDefinition = "int UNSIGNED not null")
     private Long id;
 
@@ -34,5 +36,9 @@ public class ExamSession {
 
     @Column(name = "status", length = 50)
     private String status;
+
+    @Size(max = 50)
+    @Column(name = "exam_session_name", length = 50)
+    private String examSessionName;
 
 }
