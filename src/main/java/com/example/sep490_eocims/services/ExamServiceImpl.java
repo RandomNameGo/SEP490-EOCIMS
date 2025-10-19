@@ -58,7 +58,7 @@ public class ExamServiceImpl implements ExamService {
         response.setStartDate(exam.getStartDate());
         response.setEndDate(exam.getEndDate());
         response.setStatus(exam.getStatus());
-        response.setSemesterName(exam.getSemester().getSemesterName());
+        response.setSemester(exam.getSemester().getSemesterName());
         return response;
     }
 }

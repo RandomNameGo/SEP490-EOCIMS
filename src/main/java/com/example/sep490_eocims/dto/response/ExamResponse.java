@@ -17,6 +17,6 @@ public class ExamResponse {
 
     private String status;
 
-    private String semesterName;
+    private String semester;
 
 }

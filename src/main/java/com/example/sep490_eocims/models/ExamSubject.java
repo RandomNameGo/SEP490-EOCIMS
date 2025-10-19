@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name = "exam_subject")
 public class ExamSubject {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "exam_subject_id", columnDefinition = "int UNSIGNED not null")
     private Long id;
 
