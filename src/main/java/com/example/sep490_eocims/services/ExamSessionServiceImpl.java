@@ -2,11 +2,14 @@ package com.example.sep490_eocims.services;
 
 import com.example.sep490_eocims.dto.request.ExamSessionCreateRequest;
 import com.example.sep490_eocims.dto.response.ExamSessionResponse;
+import com.example.sep490_eocims.dto.response.PagedResponse;
 import com.example.sep490_eocims.models.Exam;
 import com.example.sep490_eocims.models.ExamSession;
 import com.example.sep490_eocims.repositories.ExamRepository;
 import com.example.sep490_eocims.repositories.ExamSessionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -74,5 +77,37 @@ public class ExamSessionServiceImpl implements ExamSessionService {
         response.setExam(examResponse);
         
         return response;
+    }
+
+    @Override
+    public PagedResponse<ExamSessionResponse>  getAllExamSessionsPaged(Pageable pageable) {
+        Page<ExamSession> examSessionPage = examSessionRepository.findAll(pageable);
+        List<ExamSessionResponse> examSessionResponses = examSessionPage.getContent().stream()
+                .map(this::convertToExamSessionResponse)
+                .collect(Collectors.toList());
+        
+        return new PagedResponse<>(
+                examSessionResponses,
+                examSessionPage.getNumber(),
+                examSessionPage.getSize(),
+                examSessionPage.getTotalElements(),
+                examSessionPage.getTotalPages()
+        );
+    }
+
+    @Override
+    public PagedResponse<ExamSessionResponse> getExamSessionsByExamId(Long examId, Pageable pageable) {
+        Page<ExamSession> examSessionPage = examSessionRepository.findByExamId(examId, pageable);
+        List<ExamSessionResponse> examSessionResponses = examSessionPage.getContent().stream()
+                .map(this::convertToExamSessionResponse)
+                .collect(Collectors.toList());
+        
+        return new PagedResponse<>(
+                examSessionResponses,
+                examSessionPage.getNumber(),
+                examSessionPage.getSize(),
+                examSessionPage.getTotalElements(),
+                examSessionPage.getTotalPages()
+        );
     }
 }

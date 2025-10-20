@@ -1,10 +1,13 @@
 package com.example.sep490_eocims.services;
 
 import com.example.sep490_eocims.dto.request.SubjectRequest;
+import com.example.sep490_eocims.dto.response.PagedResponse;
 import com.example.sep490_eocims.dto.response.SubjectResponse;
 import com.example.sep490_eocims.models.Subject;
 import com.example.sep490_eocims.repositories.SubjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +34,22 @@ public class SubjectServiceImpl implements SubjectService {
         return subjects.stream()
                 .map(this::convertToSubjectResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PagedResponse<SubjectResponse> getAllSubjectsPaged(Pageable pageable) {
+        Page<Subject> subjectPage = subjectRepository.findAll(pageable);
+        List<SubjectResponse> subjectResponses = subjectPage.getContent().stream()
+                .map(this::convertToSubjectResponse)
+                .collect(Collectors.toList());
+        
+        return new PagedResponse<>(
+                subjectResponses,
+                subjectPage.getNumber(),
+                subjectPage.getSize(),
+                subjectPage.getTotalElements(),
+                subjectPage.getTotalPages()
+        );
     }
 
     private SubjectResponse convertToSubjectResponse(Subject subject) {

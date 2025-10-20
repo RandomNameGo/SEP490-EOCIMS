@@ -1,10 +1,13 @@
 package com.example.sep490_eocims.services;
 
 import com.example.sep490_eocims.dto.request.SemesterRequest;
+import com.example.sep490_eocims.dto.response.PagedResponse;
 import com.example.sep490_eocims.dto.response.SemesterResponse;
 import com.example.sep490_eocims.models.Semester;
 import com.example.sep490_eocims.repositories.SemesterRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +36,22 @@ public class SemesterServiceImpl implements SemesterService {
         return semesters.stream()
                 .map(this::convertToSemesterResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PagedResponse<SemesterResponse> getAllSemestersPaged(Pageable pageable) {
+        Page<Semester> semesterPage = semesterRepository.findAll(pageable);
+        List<SemesterResponse> semesterResponses = semesterPage.getContent().stream()
+                .map(this::convertToSemesterResponse)
+                .collect(Collectors.toList());
+        
+        return new PagedResponse<>(
+                semesterResponses,
+                semesterPage.getNumber(),
+                semesterPage.getSize(),
+                semesterPage.getTotalElements(),
+                semesterPage.getTotalPages()
+        );
     }
 
     private SemesterResponse convertToSemesterResponse(Semester semester) {
