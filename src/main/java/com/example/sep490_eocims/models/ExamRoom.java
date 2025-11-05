@@ -38,7 +38,7 @@ public class ExamRoom {
     private String subjectName;
 
     @Column(name = "number_of_student", columnDefinition = "int UNSIGNED")
-    private Long numberOfStudent;
+    private Integer numberOfStudent;
 
     @Column(name = "start_time")
     private LocalTime startTime;
